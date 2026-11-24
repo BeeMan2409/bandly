@@ -1,20 +1,22 @@
 package org.example;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @Entity
+@Table(name = "users")
 public class User {
 
     @Id
-    private String id = String.valueOf(100000000 + (int)(Math.random() * ((99999999 - 100000000) + 1)));;
+    @GeneratedValue(strategy = GenerationType.UUID)
+    protected UUID id;
     private String user_Tg;
 
     private String name;
     private int age;
+    @ElementCollection
     private List<Profile> profiles;
 
     public User(){}

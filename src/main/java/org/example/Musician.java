@@ -7,6 +7,8 @@ import jakarta.persistence.Table;
 @Table(name = "musicians")
 public class Musician extends Profile {
 
+    private String instr;
+
     public Musician(){}
 
 }
