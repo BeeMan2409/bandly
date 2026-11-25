@@ -1,6 +1,6 @@
 package org.example.controllers;
 
-import org.example.Profile;
+import org.example.entity.Profile;
 import org.example.dto.ProfileDto;
 import org.example.managers.ProfileManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +12,12 @@ import java.util.UUID;
 @RestController
 public class ProfileController {
 
+    private final ProfileManager profileManager;
+
     @Autowired
-    private ProfileManager profileManager;
+    public ProfileController(ProfileManager profileManager){
+        this.profileManager = profileManager;
+    }
 
     @GetMapping("/profiles/{id}")
     public Optional<Profile> getById(@PathVariable UUID id){

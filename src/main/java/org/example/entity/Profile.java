@@ -1,7 +1,8 @@
-package org.example;
+package org.example.entity;
 
 import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -16,6 +17,12 @@ public abstract class Profile {
 
     protected String name;
     protected String description;
+
+    @ElementCollection
+    private List<Instrument> instrument;
+
+    @ElementCollection
+    private List<Genre> genres;
 
     public UUID getId() {
         return id;

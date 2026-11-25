@@ -1,8 +1,8 @@
 package org.example.managers;
 
-import org.example.Band;
-import org.example.Musician;
-import org.example.Profile;
+import org.example.entity.Band;
+import org.example.entity.Musician;
+import org.example.entity.Profile;
 import org.example.db.ProfileDB;
 import org.example.dto.ProfileDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,14 +12,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Optional;
 import java.util.UUID;
 
-import static org.example.dto.ProfileDto.ProfileCreateRequest.Type.BAND;
-import static org.example.dto.ProfileDto.ProfileCreateRequest.Type.MUSICIAN;
-
 @Service
+@Transactional
 public class ProfileManager {
 
+    private final ProfileDB profileDB;
+
     @Autowired
-    private ProfileDB profileDB;
+    public ProfileManager(ProfileDB profileDB) {
+        this.profileDB = profileDB;
+    }
 
     public ProfileDB getProfileDB() {
         return profileDB;
