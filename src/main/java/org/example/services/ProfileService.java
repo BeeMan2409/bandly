@@ -1,4 +1,4 @@
-package org.example.managers;
+package org.example.services;
 
 import org.example.entity.Band;
 import org.example.entity.Musician;
@@ -9,35 +9,37 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @Transactional
-public class ProfileManager {
+public class ProfileService {
 
-    private final ProfileDB profileDB;
+    private final ProfileDB db;
 
     @Autowired
-    public ProfileManager(ProfileDB profileDB) {
-        this.profileDB = profileDB;
+    public ProfileService(ProfileDB db) {
+        this.db = db;
     }
 
-    public ProfileDB getProfileDB() {
-        return profileDB;
+    public List<Profile> getAll(){
+        return db.findAll();
     }
 
-    @Transactional
+    public ProfileDB getDb() {
+        return db;
+    }
+
     public Optional<Profile> search(UUID id){
-        return profileDB.findById(id);
+        return db.findById(id);
     }
 
-    @Transactional
     public void delete(UUID id){
-        profileDB.deleteById(id);
+        db.deleteById(id);
     }
 
-    @Transactional
     public Profile create(ProfileDto.ProfileCreateRequest dto){
         Profile profile = switch (dto.getType()){
             case MUSICIAN ->new Musician();
@@ -46,7 +48,7 @@ public class ProfileManager {
         profile.setName(dto.getName());
         profile.setDescription(dto.getDescription());
         profile.setOwner(dto.getOwner());
-        profileDB.save(profile);
+        db.save(profile);
         return profile;
     }
 }

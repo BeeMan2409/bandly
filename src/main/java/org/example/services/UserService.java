@@ -1,5 +1,6 @@
-package org.example.managers;
+package org.example.services;
 
+import org.example.entity.Genre;
 import org.example.entity.User;
 import org.example.db.UserDB;
 import org.example.dto.UserDto;
@@ -7,33 +8,38 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @Transactional
-public class UserManager {
+public class UserService {
 
-    private final UserDB userDB;
+    private final UserDB db;
 
     @Autowired
-    public UserManager(UserDB userDB) {
-        this.userDB = userDB;
+    public UserService(UserDB db) {
+        this.db = db;
+    }
+
+    public List<User> getAll(){
+        return db.findAll();
     }
 
     public Optional<User> search(UUID id){
-        return userDB.findById(id);
+        return db.findById(id);
     }
 
     public User create(UserDto.UserCreateRequest userCreateRequest){
         User user = new User(userCreateRequest.getTg(), userCreateRequest.getName());
-        userDB.save(user);
+        db.save(user);
         return user;
     }
 
     public Optional<User> delete(UUID id){
-        Optional<User> user = userDB.findById(id);
-        userDB.delete(user);
+        Optional<User> user = db.findById(id);
+        db.deleteById(id);
         return user;
     }
 

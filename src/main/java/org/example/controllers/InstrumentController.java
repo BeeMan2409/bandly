@@ -1,12 +1,13 @@
 package org.example.controllers;
 
 import org.example.dto.InstrumentDto;
+import org.example.entity.Genre;
 import org.example.entity.Instrument;
-import org.example.managers.InstrumentService;
+import org.example.services.InstrumentService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
-import java.util.Spliterator;
 
 @RestController
 public class InstrumentController {
@@ -30,6 +31,11 @@ public class InstrumentController {
     @GetMapping("/instruments/{id}")
     private Optional<Instrument> search(@RequestParam Integer id){
         return service.search(id);
+    }
+
+    @GetMapping("/instruments")
+    public List<Instrument> getAll(){
+        return service.getAll();
     }
 
 }

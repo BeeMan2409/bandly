@@ -1,12 +1,14 @@
-package org.example.managers;
+package org.example.services;
 
 import org.example.db.InstrumentDB;
 import org.example.dto.InstrumentDto;
+import org.example.entity.Genre;
 import org.example.entity.Instrument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +20,10 @@ public class InstrumentService {
     @Autowired
     public InstrumentService(InstrumentDB db) {
         this.db = db;
+    }
+
+    public List<Instrument> getAll(){
+        return db.findAll();
     }
 
     public Instrument create(InstrumentDto.InstrumentCreateRequest instrumentCreateRequest){

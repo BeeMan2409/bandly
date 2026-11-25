@@ -1,4 +1,4 @@
-package org.example.managers;
+package org.example.services;
 
 import org.example.db.GenreDB;
 import org.example.dto.GenreDto;
@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -18,6 +19,10 @@ public class GenreService {
     @Autowired
     public GenreService(GenreDB db) {
         this.db = db;
+    }
+
+    public List<Genre> getAll(){
+        return db.findAll();
     }
 
     public Optional<Genre> search(Integer id){
