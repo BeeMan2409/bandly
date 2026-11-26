@@ -13,9 +13,14 @@ public abstract class Profile {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     protected UUID id;
+
+    @Column(name = "owner", length = 64)
     protected String owner;
 
+    @Column(name = "name", length = 32)
     protected String name;
+
+    @Column(name = "description", length = 256)
     protected String description;
 
     @ElementCollection
